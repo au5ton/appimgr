@@ -36,10 +36,17 @@ This will:
 - Install $workspace/cui.sh
 "
 
-dialog --yesno "$install_notice" 30 80
+dialog \
+    --backtitle "Installation for https://github.com/au5ton/appimgr" \
+    --title "Installation Notice" \
+    --yesno "$install_notice" 30 80
 
-if [[ "$?" == "1" ]]; then
-    exit
+# if approved
+if [[ "$?" == "0" ]]; then
+    printf "accepted"
+else
+    printf "exiting"
+    exit 0
 fi
 
 mkdir -p "$workspace"
@@ -57,6 +64,8 @@ In your file manager, select an .AppImage and click \"Open With Other Applicatio
 You should locate and use \"appimgr\".
 
 Opening a .desktop file with appimgr will launch you into the wizard.
+
+Accept any option to continue.
 "
 
 dialog --yesno "$message" 30 80
