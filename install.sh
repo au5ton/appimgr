@@ -53,10 +53,27 @@ mkdir -p "$workspace"
 mkdir -p "$install"
 mkdir -p "$desktop"
 
-#cp appimgr.desktop "$desktop/appimgr.desktop"
-curl https://raw.githubusercontent.com/au5ton/appimgr/master/appimgr.desktop -o "$desktop/appimgr.desktop"
-#cp cui.sh "$workspace/"
+rm "$desktop/appimgr.desktop"
+
+cat >"$desktop/appimgr.desktop" <<EOL
+[Desktop Entry]
+Name=appimgr
+Comment=Small CUI for bringing organization to your AppImage programs
+Terminal=true
+Exec=${HOME}/.local/share/appimgr/cui.sh %f
+Type=Application
+Icon=/usr/share/icons/gnome/48x48/apps/gnome-settings-theme.png
+Encoding=UTF-8
+Hidden=false
+NoDisplay=false
+MimeType=application/x-appimage
+EOL
+
+chmod u+x "$desktop/appimgr.desktop"
+
+rm "$workspace/cui.sh"
 curl https://raw.githubusercontent.com/au5ton/appimgr/master/cui.sh -o "$workspace/cui.sh"
+chmod u+x "$workspace/cui.sh"
 
 message="The .desktop file for appimgr was installed to $desktop
 Usage instructions:
