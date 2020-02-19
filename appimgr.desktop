@@ -1,7 +1,7 @@
 [Desktop Entry]
+Name=appimgr
 Comment=Small CUI for bringing organization to your AppImage programs
 Terminal=true
-Name=appimgr
 Exec=$HOME/.local/share/appimgr/cui.sh %f
 Type=Application
 Icon=/usr/share/icons/gnome/48x48/apps/gnome-settings-theme.png

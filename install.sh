@@ -7,7 +7,7 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 printf "checking for dialog... "
-if [ which dialog ]; then
+if [ ! -x "$(command -v dialog)" ]; then
     printf "${RED}missing${NC}\n"
     exit
 else
@@ -15,7 +15,7 @@ else
 fi
 
 printf "checking for arronax... "
-if [ which arronax ]; then
+if [ ! -x "$(command -v arronax)" ]; then
     printf "${RED}missing${NC}\n"
     exit
 else
@@ -26,11 +26,19 @@ install="$HOME/.local/install"
 desktop="$HOME/.local/share/applications"
 workspace="$HOME/.local/share/appimgr"
 
-install_notice="Select \"Yes\" to confirm the installation of appimgr."
+install_notice="Select \"Yes\" to confirm the installation of appimgr.
+This will:
+- Create these folders if they dont already exist
+    - $workspace
+    - $install
+    - $desktop
+- Install $desktop/appimgr.desktop
+- Install $workspace/cui.sh
+"
 
 dialog --yesno "$install_notice" 30 80
 
-if [ ! echo $? ]; then
+if [[ "$?" == "1" ]]; then
     exit
 fi
 
@@ -51,4 +59,4 @@ You should locate and use \"appimgr\".
 Opening a .desktop file with appimgr will launch you into the wizard.
 "
 
-dialog --yesno "$message" 10 40
+dialog --yesno "$message" 30 80
